@@ -1,0 +1,203 @@
+openapi: 3.0.0
+info:
+  title: Sistema de Vendas API
+  version: 1.0.0
+  description: API documentation for the Sistema de Vendas
+paths:
+  /produtos:
+    get:
+      tags:
+        - Produtos
+      summary: Retrieve a list of products
+      responses:
+        "200":
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+        "500":
+          description: Server error
+    post:
+      tags:
+        - Produtos
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        "201":
+          description: Product created successfully
+        "400":
+          description: Invalid input
+        "500":
+          description: Server error
+    put:
+      tags:
+        - Produtos
+      summary: Update an existing product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        "200":
+          description: Product updated successfully
+        "404":
+          description: Product not found
+        "500":
+          description: Server error
+    delete:
+      tags:
+        - Produtos
+      summary: Delete a product
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The ID of the product to delete
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Product deleted successfully
+        "404":
+          description: Product not found
+        "500":
+          description: Server error
+  /produtos/padroes:
+    get:
+      tags:
+        - Produtos
+      summary: Retrieve a list of default products
+      responses:
+        "200":
+          description: A list of default products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+        "500":
+          description: Server error
+  /clientes:
+    get:
+      tags:
+        - Clientes
+      summary: Retrieve a list of products
+      responses:
+        "200":
+          description: A list of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    price:
+                      type: number
+        "500":
+          description: Server error
+    post:
+      tags:
+        - Clientes
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        "201":
+          description: Product created successfully
+        "400":
+          description: Invalid input
+        "500":
+          description: Server error
+    put:
+      tags:
+        - Clientes
+      summary: Update an existing product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                price:
+                  type: number
+      responses:
+        "200":
+          description: Product updated successfully
+        "404":
+          description: Product not found
+        "500":
+          description: Server error
+    delete:
+      tags:
+        - Clientes
+      summary: Delete a product
+      parameters:
+        - name: id
+          in: query
+          required: true
+          description: The ID of the product to delete
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Product deleted successfully
+        "404":
+          description: Product not found
+        "500":
+          description: Server error
