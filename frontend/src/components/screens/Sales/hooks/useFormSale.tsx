@@ -43,8 +43,14 @@ export function useFormSale({
   })
 
   async function onCreateNewSale(newSale: INewSale) {
+    const newSaleCorrect = {
+      ...newSale,
+      products: newSale.products.map((item) => {
+        return { ...item, amount: Number(item.amount) }
+      }),
+    }
     await salesService
-      .create({ newSaleData: newSale, totalValue }, httpClientProvider)
+      .create({ newSaleData: newSaleCorrect, totalValue }, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -75,8 +81,15 @@ export function useFormSale({
   }
 
   async function onEditSale(sale: INewSale) {
+    const editSaleCorrect = {
+      ...sale,
+      products: sale.products.map((item) => {
+        return { ...item, amount: Number(item.amount) }
+      }),
+    }
+
     await salesService
-      .update({ saleData: sale, totalValue }, httpClientProvider)
+      .update({ saleData: editSaleCorrect, totalValue }, httpClientProvider)
       .then(() => {
         setAlertNotifyConfigs({
           ...alertNotifyConfigs,
@@ -128,7 +141,7 @@ export function useFormSale({
 
     const copyProducts: any[] = [...products]
 
-    copyProducts[index][name] = value
+    copyProducts[index][name] = name === 'amount' ? Number(value) : value
 
     setValue('products', copyProducts)
   }
