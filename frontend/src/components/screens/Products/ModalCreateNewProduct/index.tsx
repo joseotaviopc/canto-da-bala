@@ -34,6 +34,19 @@ export function ModalCreateNewProduct({
     productDataToEdit,
   })
 
+  const handleValueChange = (event) => {
+    let value = event.target.value
+    value = value.replace(/[^0-9,]/g, '')
+    const parts = value.split(',')
+    if (parts.length > 1) {
+      parts[1] = parts[1].slice(0, 2)
+    }
+    value = parts.join(',')
+    setValue('value', value)
+  }
+
+  console.log({ errors })
+
   return (
     <ModalLayout
       open={open}
@@ -112,9 +125,10 @@ export function ModalCreateNewProduct({
         <CustomTextField
           size="small"
           label="Valor"
-          type="number"
+          type="text"
           placeholder="Digite o valor"
-          {...register('value', { valueAsNumber: true })}
+          {...register('value', { pattern: /^\d{1,6},\d{2}$/ })}
+          onChange={handleValueChange}
         />
       </div>
     </ModalLayout>

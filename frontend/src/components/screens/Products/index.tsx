@@ -73,7 +73,10 @@ export function Products() {
 
       {formModalOpened && (
         <ModalCreateNewProduct
-          productDataToEdit={productDataToEdit}
+          productDataToEdit={{
+            ...productDataToEdit,
+            value: String(productDataToEdit?.value || 0).replace('.', ','),
+          }}
           open={formModalOpened}
           handleClose={() => {
             setFormModalOpened(false)

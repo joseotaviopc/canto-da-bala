@@ -28,7 +28,7 @@ export function useFormProduct({ handleClose, productDataToEdit }: Props) {
     defaultValues: productDataToEdit || {
       name: '',
       stock: 0,
-      value: 0,
+      value: '',
       isDefault: false,
     },
     resolver: zodResolver(newProductSchema),
@@ -40,8 +40,12 @@ export function useFormProduct({ handleClose, productDataToEdit }: Props) {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
   function onCreateNewProduct(newProduct: INewProduct) {
+    const correctProduct = {
+      ...newProduct,
+      value: Number(newProduct.value.replace(',', '.')),
+    }
     productsService
-      .create({ ...newProduct }, httpClientProvider)
+      .create({ ...correctProduct }, httpClientProvider)
       .then(() => {
         router.push({
           pathname: router.route,
@@ -70,8 +74,12 @@ export function useFormProduct({ handleClose, productDataToEdit }: Props) {
   }
 
   async function onEditProduct(product: INewProduct) {
+    const correctProduct = {
+      ...product,
+      value: Number(product.value.replace(',', '.')),
+    }
     await productsService
-      .update({ ...product, _id: product._id || '' }, httpClientProvider)
+      .update({ ...correctProduct, _id: product._id || '' }, httpClientProvider)
       .then(() => {
         router.push({
           pathname: router.route,
